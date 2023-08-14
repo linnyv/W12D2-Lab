@@ -19,3 +19,16 @@ app.get('/greeting/:name', (req, res) => {
 
     res.send (randomizeSaludos);
 });
+
+//Route: Tip Calculator 
+app.get('/tip/:total/:tipPercentage', (req, res) => {
+
+    const total = parseFloat(req.params.total);
+
+    const tipPercentage = parseFloat(req.params.tipPercentage);
+
+    const tip = (total * (tipPercentage/100)).toFixed(2);
+
+    res.send(tip);
+})
+
