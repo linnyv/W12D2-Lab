@@ -57,9 +57,15 @@ app.get('/magic/:question', (req, res) => {
         `Ask tomorrow`,
         `Ask in the future`,
     ];
-    const randomizeRespuestas = saludos[Math.floor(Math.random() * respuestas.length)];
+    const randomizeRespuestas = respuestas[Math.floor(Math.random() * respuestas.length)];
 
 
     res.send (`<h1>Question: ${preguntas}</h1>
             <h1>Response: ${randomizeRespuestas}</h1>`);
+});
+
+//Server on
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server is up and running on http://localhost:${port}`);
 });
