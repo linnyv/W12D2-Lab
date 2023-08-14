@@ -32,3 +32,34 @@ app.get('/tip/:total/:tipPercentage', (req, res) => {
     res.send(tip);
 })
 
+//Route: Magic 8 Ball
+app.get('/magic/:question', (req, res) => {
+
+
+    const preguntas = req.params.question;
+
+
+    const respuestas = [
+        `Maybe`,
+        `No`,
+        `Si`,
+        `Yes`,
+        `Tal Vez`,
+        `Not sure`,
+        `Definietly`,
+        `Definietly not`,
+        `Likely`,
+        `Not Likely`,
+        `Possible`,
+        `Not Possible`,
+        `Certainly`,
+        `Ask later`,
+        `Ask tomorrow`,
+        `Ask in the future`,
+    ];
+    const randomizeRespuestas = saludos[Math.floor(Math.random() * respuestas.length)];
+
+
+    res.send (`<h1>Question: ${preguntas}</h1>
+            <h1>Response: ${randomizeRespuestas}</h1>`);
+});
