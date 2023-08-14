@@ -1,8 +1,18 @@
-const express = require('express'); 
-const app = express();
+const express = require("express");
+
+const server = express()
+const PORT = process.env.PORT || 3000
+
+server.get("/", (req, res)=>{
+    res.status(200).json({message: "API UP!"})
+});
+
+server.listen(PORT, ()=>{
+    console.log(`Server is listening at: ${PORT}`)
+});
 
 //Route: Greetings portion
-app.get('/greeting/:name', (req, res) => {
+server.get('/greeting/:name', (req, res) => {
 
     const nombre = req.params.name;
 
@@ -17,11 +27,11 @@ app.get('/greeting/:name', (req, res) => {
     
     const randomizeSaludos = saludos[Math.floor(Math.random() * saludos.length)];
 
-    res.send (randomizeSaludos);
+    res.status(200).json ({message:randomizeSaludos})
 });
 
 //Route: Tip Calculator 
-app.get('/tip/:total/:tipPercentage', (req, res) => {
+server.get('/tip/:total/:tipPercentage', (req, res) => {
 
     const total = parseFloat(req.params.total);
 
@@ -29,11 +39,11 @@ app.get('/tip/:total/:tipPercentage', (req, res) => {
 
     const tip = (total * (tipPercentage/100)).toFixed(2);
 
-    res.send(tip);
+    res.status(200).json({message: `Please tip $${tip}`})
 })
 
 //Route: Magic 8 Ball
-app.get('/magic/:question', (req, res) => {
+server.get('/magic/:question', (req, res) => {
 
 
     const preguntas = req.params.question;
@@ -62,13 +72,12 @@ app.get('/magic/:question', (req, res) => {
 
     const randomizeRespuestas = respuestas[Math.floor(Math.random() * respuestas.length)];
 
+    console.log(preguntas, randomizeRespuestas);
 
-    res.send (`<h1>Question: ${preguntas}</h1>
-            <h1>Response: ${randomizeRespuestas}</h1>`);
+    res.json({message:`
+    <h1>Question: ${preguntas}</h1>
+    <h1>Response: ${randomizeRespuestas}</h1>
+    `});
 });
 
-//Server on
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Server is up and running on http://localhost:${port}`);
-});
+
